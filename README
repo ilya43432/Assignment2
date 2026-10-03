@@ -1,0 +1,105 @@
+> Assignment 2 - Systems Programming 2
+> Name - Ilya Bagaev
+-----------------------------------------------------------------------------------------------------------------------------------------
+This Assignent covers a manual matrix implementation with a main focus on Operator overloading.
+
+The implementation also includes some strong c++ practices such as - 
+
+- Rule Of Three - Copy constuctor, copy assignment operator and a destructor.
+
+- Exceptions handling - I've tried my best to handle exceptions as safe as possilbe so therfore alot of my implementations are wrapped in a try/catch block for memory allocation
+
+- Memory Management - The matrix is implemented using pointers (double**). It was my responsibility to account for the allocation and deallocation of memory, and the correctness was verified using valgrind, ensuring there are no memory leaks or invalid accesses.
+
+- Input validation - this also plays a big part in my implementation. all the user provided inputs, such as creating a matrix or even when performing an operator on a matrix are stricly validated.
+
+Opearator overloading played a big part in this assignment - these are all the implemented operators for this manual matrix
+
+    Arithmetic operations between 2 matrices -
+    SquareMat operator+(const SquareMat &mat) const;
+    SquareMat operator-(const SquareMat &mat) const;
+
+    unary operator on a matrix.
+    SquareMat operator-() const;
+
+    multiplication between 2 matrices.
+    SquareMat operator*(const SquareMat &mat) const;
+
+    scalar multiplication on a matrix.
+    SquareMat operator*(double scalar) const;
+
+    matrix multiplication between 2 matrices but with a twist - 
+    each index of the current matrix is multipiled with the same index of the given matrix argument
+    SquareMat operator%(const SquareMat &mat) const;
+
+    scalar modulo on a matrix.
+    SquareMat operator%(int scalar) const;
+
+    matrix division using a scalar.
+    SquareMat operator/(double scalar) const;
+
+    matrix power operator with an integer
+    SquareMat operator^(int power) const;
+
+    prefix increment operator
+    SquareMat &operator++();
+
+    postfix increment operator
+    SquareMat operator++(int);
+
+    prefix decrement operator
+    SquareMat &operator--();
+
+    postfix decrement operator
+    SquareMat operator--(int);
+
+    transpose operator
+    SquareMat operator~() const;
+
+    access operator for the matrix to modify an element
+    double *operator[](int index);
+
+    constant operator[] to access an element without the need to change it.
+    const double *operator[](int index) const;
+
+        Comparison operators -
+        bool operator==(const SquareMat &mat) const;
+        bool operator!=(const SquareMat &mat) const;
+        bool operator<(const SquareMat &mat) const;
+        bool operator>(const SquareMat &mat) const;
+        bool operator<=(const SquareMat &mat) const;
+        bool operator>=(const SquareMat &mat) const;
+
+        Determinant calculation operator -
+        double operator!() const;
+
+        Assignment operators between 2 matrices and scalar
+        all of these operators are used to modify the current matrix
+        and therefore they return a reference to the current matrix.
+        for these operator we are changing the current matrix meaning that we return the result by reference
+        SquareMat &operator+=(const SquareMat &mat);
+        SquareMat &operator-=(const SquareMat &mat);
+        SquareMat &operator*=(const SquareMat &mat);
+        SquareMat &operator*=(double scalar);
+        SquareMat &operator/=(double scalar);
+        SquareMat &operator%=(const SquareMat &mat);
+        SquareMat &operator%=(int scalar);
+
+        2 friend operators -
+        1. multiplication operation between a scalar and a matrix
+        2. printing operator for the matrix
+        friend SquareMat operator*(double scalar, const SquareMat &mat);
+        friend std::ostream &operator<<(std::ostream &os, const SquareMat &mat);
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Program compiling instructions - 
+To compile - make / make all
+
+To run the tests - ./test
+
+To run the main.cpp - ./main
+
+to clean all the files - make clean
+
+to run both the test.cpp and main.cpp we type make valgrind
